@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Windows XP Professional — Wonderland Web Edition (Build 4.0)</title>
+<title>Windows XP Professional — Wonderland Web Edition (Build 5.0)</title>
 <style>
   :root {
     --luna-blue-top: #0058ee;
@@ -12,8 +12,6 @@
     --luna-inactive: #7a96df;
     --xp-cream: #ece9d8;
     --xp-border: #001ea0;
-    --start-green-top: #3c9f3c;
-    --start-green-bot: #247524;
   }
   * { box-sizing: border-box; user-select: none; font-family: Tahoma, "Trebuchet MS", sans-serif; }
   body, html {
@@ -22,23 +20,17 @@
   }
 
   /* ---- BIOS & BOOT OVERLAYS ---- */
-  #bios-screen, #cmos-screen, #xp-boot-screen, #shutdown-screen {
+  #bios-screen, #cmos-screen, #xp-boot-screen {
     position: fixed; inset: 0; z-index: 9000;
     font-family: "Courier New", monospace; font-weight: bold;
   }
-  #bios-screen {
-    background: #000; color: #ccc; padding: 24px; font-size: 15px; line-height: 1.45;
-  }
+  #bios-screen { background: #000; color: #ccc; padding: 24px; font-size: 15px; line-height: 1.45; }
   .epa-box {
     position: absolute; top: 20px; right: 28px; width: 210px;
     border: 2px solid #fff; background: #0000a8; padding: 8px 12px; text-align: center;
   }
-  #cmos-screen {
-    display: none; background: #0000a8; color: #fff; padding: 18px; font-size: 15px;
-  }
-  .cmos-frame {
-    border: 2px double #fff; height: calc(100vh - 36px); padding: 16px; position: relative;
-  }
+  #cmos-screen { display: none; background: #0000a8; color: #fff; padding: 18px; font-size: 15px; }
+  .cmos-frame { border: 2px double #fff; height: calc(100vh - 36px); padding: 16px; position: relative; }
   .cmos-btn {
     display: inline-block; background: #a80000; color: #ffff55; border: 1px solid #fff;
     padding: 8px 14px; margin: 6px; cursor: pointer;
@@ -60,7 +52,7 @@
   }
   .progress-Shuttle {
     display: flex; gap: 3px; position: absolute; left: -45px; top: 2px;
-    animation: xpLoad 1.6s linear infinite;
+    animation: xpLoad 1.4s linear infinite;
   }
   .progress-Shuttle span {
     width: 11px; height: 10px; background: linear-gradient(180deg, #55aaff, #0044cc); border-radius: 1px;
@@ -76,19 +68,19 @@
     overflow: hidden;
   }
 
-  /* ---- DESKTOP ICONS ---- */
+  /* ---- DESKTOP ICONS (2 COLUMNS) ---- */
   .icon-grid {
-    display: flex; flex-direction: column; flex-wrap: wrap; gap: 14px;
-    padding: 14px; height: 100%; width: 96px;
+    display: grid; grid-template-columns: 82px 82px; gap: 8px 6px;
+    padding: 10px; width: 180px;
   }
   .desk-icon {
     width: 78px; text-align: center; color: #fff; cursor: pointer;
-    padding: 6px 4px; border-radius: 4px; border: 1px solid transparent;
-    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
+    padding: 5px 3px; border-radius: 4px; border: 1px solid transparent;
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000; font-size: 11px;
   }
-  .desk-icon:hover { background: rgba(11, 97, 255, 0.35); border-color: rgba(255,255,255,0.5); }
+  .desk-icon:hover { background: rgba(11, 97, 255, 0.38); border-color: rgba(255,255,255,0.55); }
   .desk-icon-badge {
-    width: 38px; height: 34px; margin: 0 auto 5px; border-radius: 5px;
+    width: 36px; height: 32px; margin: 0 auto 4px; border-radius: 5px;
     border: 1px solid #000; display: flex; align-items: center; justify-content: center;
     font-weight: bold; font-size: 11px; box-shadow: 1px 2px 4px rgba(0,0,0,0.45);
   }
@@ -109,7 +101,7 @@
   .xp-titlebar {
     height: 28px; padding: 0 6px 0 10px;
     background: linear-gradient(180deg, var(--luna-blue-mid) 0%, var(--luna-blue-top) 18%, var(--luna-blue-bot) 100%);
-    color: #fff; font-weight: bold; font-size: 13px; text-shadow: 1px 1px 1px #001a66;
+    color: #fff; font-weight: bold; font-size: 12px; text-shadow: 1px 1px 1px #001a66;
     display: flex; align-items: center; justify-content: space-between; cursor: move;
   }
   .xp-window.inactive .xp-titlebar {
@@ -125,20 +117,53 @@
   .win-btn:hover { filter: brightness(1.18); }
 
   .win-toolbar {
-    background: #ece9d8; border-bottom: 1px solid #aca899; padding: 5px 8px;
+    background: #ece9d8; border-bottom: 1px solid #aca899; padding: 4px 8px;
     display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
   }
   .xp-btn {
     background: linear-gradient(180deg, #ffffff 0%, #ece9d8 85%, #d6d2c2 100%);
-    border: 1px solid #003c74; border-radius: 3px; padding: 4px 10px;
+    border: 1px solid #003c74; border-radius: 3px; padding: 3px 9px;
     font-size: 11px; font-weight: bold; color: #111; cursor: pointer;
   }
   .xp-btn:hover { border-color: #e59700; box-shadow: inset 0 0 2px #ffc73c; }
-  .xp-btn:active { background: #d6d2c2; }
+  .xp-btn.active-tool { background: #ffc73c; border-color: #b35900; }
   .win-body {
     flex: 1; padding: 8px; overflow: auto; display: flex; flex-direction: column;
     background: var(--xp-cream);
   }
+
+  /* ---- MINESWEEPER STYLES ---- */
+  .mine-grid {
+    display: grid; grid-template-columns: repeat(9, 26px); grid-template-rows: repeat(9, 26px);
+    border: 3px inset #fff; background: #bdbdbd; margin: 0 auto;
+  }
+  .mine-cell {
+    width: 26px; height: 26px; border: 2px outset #fff; background: #c0c0c0;
+    font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-family: Tahoma, sans-serif;
+  }
+  .mine-cell.revealed { border: 1px solid #888; background: #d0d0d0; cursor: default; }
+  .mine-cell.boom { background: #ff2222; }
+  .led-box {
+    background: #000; color: #ff1111; font-family: "Courier New", monospace;
+    font-size: 19px; font-weight: bold; padding: 2px 6px; border: 2px inset #888; letter-spacing: 2px;
+  }
+
+  /* ---- ALBINO BLACKSHEEP PORTAL STYLES ---- */
+  .abs-portal {
+    background: #181818; color: #eee; font-family: Verdana, sans-serif; flex: 1;
+    display: flex; flex-direction: column; overflow-y: auto; border: 2px inset #888;
+  }
+  .abs-header {
+    background: linear-gradient(90deg, #ffb400 0%, #d47a00 100%);
+    color: #000; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3px solid #fff;
+  }
+  .abs-card {
+    background: #262626; border: 1px solid #444; border-radius: 4px; padding: 8px;
+    cursor: pointer; transition: 0.15s;
+  }
+  .abs-card:hover { border-color: #ffb400; background: #332b1a; }
 
   /* ---- TASKBAR & START MENU ---- */
   #taskbar {
@@ -151,14 +176,10 @@
     background: linear-gradient(180deg, #47b247 0%, #349234 50%, #206b20 100%);
     color: #fff; font-weight: bold; font-style: italic; font-size: 15px;
     text-shadow: 1px 1px 2px #0b3b0b; cursor: pointer; box-shadow: 2px 0 5px rgba(0,0,0,0.35);
-    display: flex; align-items: center; gap: 6px;
   }
-  #start-btn:hover { filter: brightness(1.1); }
-  #taskbar-tabs {
-    flex: 1; display: flex; gap: 4px; padding: 0 8px; overflow-x: auto;
-  }
+  #taskbar-tabs { flex: 1; display: flex; gap: 4px; padding: 0 8px; overflow-x: auto; }
   .task-tab {
-    min-width: 115px; max-width: 155px; height: 26px; padding: 0 10px;
+    min-width: 95px; max-width: 145px; height: 26px; padding: 0 8px;
     background: #3979f5; border: 1px solid #16429b; border-radius: 3px;
     color: #fff; font-size: 11px; display: flex; align-items: center;
     cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -170,7 +191,7 @@
   }
 
   #start-menu {
-    position: fixed; bottom: 34px; left: 0; width: 290px; z-index: 6000;
+    position: fixed; bottom: 34px; left: 0; width: 310px; z-index: 6000;
     background: #fff; border: 2px solid var(--luna-blue-bot); border-radius: 7px 7px 0 0;
     box-shadow: 4px -2px 14px rgba(0,0,0,0.45); display: none; overflow: hidden;
   }
@@ -183,9 +204,9 @@
     width: 34px; height: 34px; border-radius: 4px; border: 2px solid #fff;
     background: #258525; display: flex; align-items: center; justify-content: center;
   }
-  .sm-list { padding: 6px; background: #fff; }
+  .sm-list { padding: 6px; background: #fff; max-height: 360px; overflow-y: auto; }
   .sm-item {
-    padding: 8px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;
+    padding: 7px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;
     color: #1b1b1b; display: flex; align-items: center; justify-content: space-between;
     border-bottom: 1px solid #f0efe6;
   }
@@ -195,10 +216,9 @@
     display: flex; justify-content: flex-end; gap: 8px;
   }
 
-  /* ---- INPUTS & TEXTAREAS ---- */
   textarea, input[type="text"] {
-    user-select: text; font-family: "Courier New", monospace; font-size: 13px;
-    border: 1px solid #7f9db9; padding: 6px; outline: none;
+    user-select: text; font-family: "Courier New", monospace; font-size: 12px;
+    border: 1px solid #7f9db9; padding: 4px 6px; outline: none;
   }
   .file-row {
     padding: 6px 8px; border-bottom: 1px solid #eee; cursor: pointer;
@@ -217,13 +237,14 @@
     <div style="color:#fff;font-size:11px;margin-top:4px;">ENERGY STAR ALLY</div>
   </div>
   <div>Award Modular BIOS v6.00PG, An Energy Star Ally</div>
-  <div>Copyright (C) 1984-2002, Award Software, Inc.</div>
-  <div style="color:#55ffff;margin-top:8px;">Magic Goat Studio Web-ACPI BIOS Revision 4.00</div>
-  <div style="margin-top:12px;">Main Processor : Pentium(R) III-S 1400MHz (WebAssembly Core)</div>
+  <div>Copyright (C) 1984-2003, Award Software, Inc.</div>
+  <div style="color:#55ffff;margin-top:8px;">Magic Goat Studio Web-ACPI BIOS Revision 5.00 (Gaming &amp; Flash Suite)</div>
+  <div style="margin-top:12px;">Main Processor : Pentium(R) 4 2.80GHz Hyper-Threading WebCore</div>
   <div>Memory Testing : <span id="bios-ram">0</span>K OK</div>
   <div id="bios-drives" style="margin-top:14px;"></div>
   <div style="position:fixed;bottom:20px;left:24px;color:#ffff55;">
-    Press <b>[DEL]</b> or <span class="cmos-btn" onclick="openCMOSSetup()">CLICK HERE FOR BIOS SETUP</span> during POST
+    Press <b>[DEL]</b> or <span class="cmos-btn" onclick="openCMOSSetup()">CLICK HERE FOR BIOS SETUP</span>
+    <span class="cmos-btn" style="background:#006600;" onclick="launchXPBootSplash()">FAST BOOT &gt;&gt;</span>
   </div>
 </div>
 
@@ -241,9 +262,7 @@
     <div style="margin-top:18px;color:#55ffff;line-height:1.7;">
       <div>Primary Master   : [HTML5 LocalStorage SPIFFS Cluster]</div>
       <div>Secondary Master : [Virtual SDHC Card D: Mounted]</div>
-      <div>Audio Subsystem  : [Web Audio API Dual-Oscillator Synth]</div>
-      <div>Network Bridge   : [BroadcastChannel Port 4444 + Wonderland Bot]</div>
-      <div>Serial Interface : [Navigator.Serial Hardware UART Bridge]</div>
+      <div>Multimedia Suite : [IE6 Albino Blacksheep + MS Paint + Pinball + Solitaire + Mines]</div>
     </div>
   </div>
 </div>
@@ -258,7 +277,7 @@
   </div>
   <div style="font-size:14px;letter-spacing:1px;">Microsoft</div>
   <div style="font-size:34px;font-weight:bold;">Windows <span style="color:#ff6600;font-size:20px;vertical-align:super;">XP</span></div>
-  <div style="color:#aaa;margin-top:2px;">Professional Web Workstation</div>
+  <div style="color:#aaa;margin-top:2px;">Professional 2003 Gaming &amp; Multimedia Edition</div>
   <div class="progress-track">
     <div class="progress-Shuttle"><span></span><span></span><span></span></div>
   </div>
@@ -267,6 +286,30 @@
 <!-- ==================== 4. MAIN BLISS DESKTOP ==================== -->
 <div id="desktop" onclick="closeStartMenuIfOpen(event)">
   <div class="icon-grid">
+    <div class="desk-icon" onclick="openApp('ie6')">
+      <div class="desk-icon-badge" style="background:#0066cc;color:#fff;font-size:16px;">e</div>
+      <div>Internet Explorer</div>
+    </div>
+    <div class="desk-icon" onclick="openApp('pinball')">
+      <div class="desk-icon-badge" style="background:#3b1d5e;color:#00ffcc;">PIN</div>
+      <div>3D Pinball</div>
+    </div>
+    <div class="desk-icon" onclick="openApp('mines')">
+      <div class="desk-icon-badge" style="background:#444;color:#ff4444;">💣</div>
+      <div>Minesweeper</div>
+    </div>
+    <div class="desk-icon" onclick="openApp('solitaire')">
+      <div class="desk-icon-badge" style="background:#0b6623;color:#fff;">♠♥</div>
+      <div>Solitaire</div>
+    </div>
+    <div class="desk-icon" onclick="openApp('paint')">
+      <div class="desk-icon-badge" style="background:#fff;color:#e00;">🎨</div>
+      <div>MS Paint</div>
+    </div>
+    <div class="desk-icon" onclick="openApp('msn')">
+      <div class="desk-icon-badge" style="background:#258525;color:#fff;">MSN</div>
+      <div>MSN Chat</div>
+    </div>
     <div class="desk-icon" onclick="openApp('mycomp')">
       <div class="desk-icon-badge" style="background:#4aa3ff;color:#fff;">PC</div>
       <div>My Computer</div>
@@ -274,10 +317,6 @@
     <div class="desk-icon" onclick="openApp('notepad')">
       <div class="desk-icon-badge" style="background:#ffffff;color:#111;">TXT</div>
       <div>Notepad</div>
-    </div>
-    <div class="desk-icon" onclick="openApp('msn')">
-      <div class="desk-icon-badge" style="background:#258525;color:#fff;">MSN</div>
-      <div>MSN Chat</div>
     </div>
     <div class="desk-icon" onclick="openApp('taskmgr')">
       <div class="desk-icon-badge" style="background:#104e10;color:#0f0;">MON</div>
@@ -293,8 +332,193 @@
     </div>
   </div>
 
+  <!-- ==================== WINDOW: INTERNET EXPLORER 6 (ALBINO BLACKSHEEP) ==================== -->
+  <div id="win-ie6" class="xp-window" style="left:185px;top:16px;width:620px;height:450px;" onmousedown="focusWindow('ie6')">
+    <div class="xp-titlebar" onmousedown="startDrag(event, 'win-ie6')">
+      <span id="ie6-title">Albino Blacksheep — Flash Movies &amp; Animations - Microsoft Internet Explorer</span>
+      <div class="win-controls">
+        <div class="win-btn" onclick="toggleMaximize('ie6')">□</div>
+        <div class="win-btn close" onclick="closeApp('ie6')">X</div>
+      </div>
+    </div>
+    <div class="win-toolbar">
+      <button class="xp-btn" onclick="ieNavigate('http://www.albinoblacksheep.com/')">🏠 Home (ABS)</button>
+      <button class="xp-btn" onclick="iePlayFlash('ze_world')">🌍 End of Ze World</button>
+      <button class="xp-btn" onclick="iePlayFlash('badgers')">🦡 Badgers</button>
+      <button class="xp-btn" onclick="iePlayFlash('llama')">🦙 Llama Song</button>
+      <button class="xp-btn" onclick="iePlayFlash('shfifty')">5️⃣5️⃣ Shfifty Five</button>
+    </div>
+    <div class="win-toolbar" style="padding:3px 8px;">
+      <span style="font-weight:bold;color:#444;">Address</span>
+      <input type="text" id="ie6-url" value="http://www.albinoblacksheep.com/flash/" style="flex:1;" onkeydown="if(event.key==='Enter')ieGoBar()">
+      <button class="xp-btn" style="background:#3c9f3c;color:#fff;" onclick="ieGoBar()">Go</button>
+    </div>
+    <div class="win-body" style="padding:0;">
+      <!-- ABS Recreated Portal View -->
+      <div id="abs-container" class="abs-portal">
+        <div class="abs-header">
+          <div>
+            <span style="font-size:18px;font-weight:900;letter-spacing:-1px;">🐑 ALBINO BLACKSHEEP</span>
+            <span style="font-size:10px;display:block;font-weight:bold;">EST. 1996 // MACROMEDIA FLASH PLAYER 7.0 PLUG-IN ACTIVE</span>
+          </div>
+          <div style="font-size:11px;background:#000;color:#ffb400;padding:4px 8px;border-radius:3px;">
+            ONLINE USERS: 14,392
+          </div>
+        </div>
+
+        <div style="display:flex;flex:1;gap:10px;padding:10px;">
+          <!-- Left Flash Directory -->
+          <div style="width:210px;display:flex;flex-direction:column;gap:6px;">
+            <div style="color:#ffb400;font-weight:bold;font-size:11px;border-bottom:1px solid #555;padding-bottom:3px;">
+              TOP FLASH ANIMATIONS (2003)
+            </div>
+            <div class="abs-card" onclick="iePlayFlash('ze_world')">
+              <div style="color:#ffb400;font-weight:bold;">1. The End of the World</div>
+              <div style="font-size:10px;color:#aaa;">by Fluid (wtfmate.swf) — "But I am le tired..."</div>
+            </div>
+            <div class="abs-card" onclick="iePlayFlash('badgers')">
+              <div style="color:#ffb400;font-weight:bold;">2. Badger Badger Badger</div>
+              <div style="font-size:10px;color:#aaa;">by Weebl (badgers.swf) — Mushroom! Snaaake!</div>
+            </div>
+            <div class="abs-card" onclick="iePlayFlash('llama')">
+              <div style="color:#ffb400;font-weight:bold;">3. The Llama Song</div>
+              <div style="font-size:10px;color:#aaa;">by Burton Earny (llama.swf) — "Here's a llama..."</div>
+            </div>
+            <div class="abs-card" onclick="iePlayFlash('shfifty')">
+              <div style="color:#ffb400;font-weight:bold;">4. Shfifty Five</div>
+              <div style="font-size:10px;color:#aaa;">by Group X (shfifty.swf) — "Shiggity shwat?"</div>
+            </div>
+          </div>
+
+          <!-- Right Macromedia Flash Stage Canvas -->
+          <div style="flex:1;display:flex;flex-direction:column;background:#000;border:2px solid #555;border-radius:4px;overflow:hidden;">
+            <div style="background:#333;color:#fff;padding:4px 8px;font-size:11px;display:flex;justify-content:space-between;">
+              <span id="swf-title">STAGE: wtfmate.swf (320x240 @ 24fps)</span>
+              <span style="color:#0f0;">● PLAYING</span>
+            </div>
+            <canvas id="abs-stage" width="350" height="220" style="width:100%;flex:1;background:#000;cursor:pointer;" onclick="triggerFlashSoundEffect()"></canvas>
+            <div style="background:#222;padding:5px 8px;display:flex;gap:6px;align-items:center;">
+              <button class="xp-btn" onclick="toggleFlashPause()" id="swf-play-btn">Pause SWF</button>
+              <button class="xp-btn" onclick="triggerFlashSoundEffect()">🔊 Sing / SFX</button>
+              <span id="swf-subtitle" style="color:#ff0;font-family:monospace;font-size:11px;margin-left:auto;">"Hokay, so here's the Earth..."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- External URL Iframe View -->
+      <iframe id="ie6-iframe" style="display:none;width:100%;flex:1;border:none;background:#fff;"></iframe>
+    </div>
+  </div>
+
+  <!-- ==================== WINDOW: MINESWEEPER ==================== -->
+  <div id="win-mines" class="xp-window" style="left:240px;top:45px;width:280px;height:355px;" onmousedown="focusWindow('mines')">
+    <div class="xp-titlebar" onmousedown="startDrag(event, 'win-mines')">
+      <span>Minesweeper</span>
+      <div class="win-controls">
+        <div class="win-btn close" onclick="closeApp('mines')">X</div>
+      </div>
+    </div>
+    <div class="win-toolbar">
+      <button class="xp-btn" onclick="initMinesweeper()">New Game</button>
+      <span style="font-size:10px;color:#444;">L-Click: Dig | R-Click: Flag 🚩</span>
+    </div>
+    <div class="win-body" style="background:#c0c0c0;border:3px outset #fff;align-items:center;">
+      <div style="width:234px;border:2px inset #fff;padding:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;background:#c0c0c0;">
+        <div class="led-box" id="mine-count-led">010</div>
+        <button onclick="initMinesweeper()" id="mine-smiley" style="font-size:18px;width:32px;height:32px;border:2px outset #fff;background:#c0c0c0;cursor:pointer;">🙂</button>
+        <div class="led-box" id="mine-timer-led">000</div>
+      </div>
+      <div id="mine-grid" class="mine-grid" oncontextmenu="return false;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== WINDOW: MS PAINT ==================== -->
+  <div id="win-paint" class="xp-window" style="left:170px;top:24px;width:540px;height:410px;" onmousedown="focusWindow('paint')">
+    <div class="xp-titlebar" onmousedown="startDrag(event, 'win-paint')">
+      <span>untitled.bmp - Paint</span>
+      <div class="win-controls">
+        <div class="win-btn" onclick="toggleMaximize('paint')">□</div>
+        <div class="win-btn close" onclick="closeApp('paint')">X</div>
+      </div>
+    </div>
+    <div class="win-toolbar">
+      <button class="xp-btn active-tool" id="ptool-pencil" onclick="setPaintTool('pencil')">✏️ Pencil</button>
+      <button class="xp-btn" id="ptool-brush" onclick="setPaintTool('brush')">🖌️ Brush</button>
+      <button class="xp-btn" id="ptool-line" onclick="setPaintTool('line')">📏 Line</button>
+      <button class="xp-btn" id="ptool-rect" onclick="setPaintTool('rect')">▭ Rect</button>
+      <button class="xp-btn" id="ptool-circle" onclick="setPaintTool('circle')">◯ Circle</button>
+      <button class="xp-btn" id="ptool-fill" onclick="setPaintTool('fill')">🪣 Fill</button>
+      <button class="xp-btn" id="ptool-eraser" onclick="setPaintTool('eraser')">🧽 Eraser</button>
+      <button class="xp-btn" onclick="clearPaintCanvas()">Clear</button>
+      <button class="xp-btn" style="color:#005500;" onclick="savePaintToSD()">💾 Save to D:\</button>
+    </div>
+    <div class="win-body" style="background:#808080;padding:6px;">
+      <canvas id="paint-canvas" width="490" height="275" style="background:#fff;border:2px inset #444;cursor:crosshair;"></canvas>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:6px;background:#ece9d8;padding:4px 6px;border:1px solid #fff;">
+        <div id="paint-active-swatch" style="width:24px;height:24px;border:2px inset #fff;background:#000;"></div>
+        <div id="paint-palette" style="display:flex;flex-wrap:wrap;gap:3px;flex:1;"></div>
+        <span id="paint-status" style="font-size:11px;font-weight:bold;color:#003399;">Ready</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== WINDOW: SOLITAIRE ==================== -->
+  <div id="win-solitaire" class="xp-window" style="left:195px;top:22px;width:550px;height:420px;" onmousedown="focusWindow('solitaire')">
+    <div class="xp-titlebar" onmousedown="startDrag(event, 'win-solitaire')">
+      <span>Solitaire</span>
+      <div class="win-controls">
+        <div class="win-btn" onclick="toggleMaximize('solitaire')">□</div>
+        <div class="win-btn close" onclick="closeApp('solitaire')">X</div>
+      </div>
+    </div>
+    <div class="win-toolbar">
+      <button class="xp-btn" onclick="initSolitaire()">🃏 Deal New Deck</button>
+      <button class="xp-btn" onclick="triggerSolitaireWaterfall()">🏆 Waterfall Win Demo!</button>
+      <span id="sol-status" style="margin-left:auto;font-weight:bold;color:#0b5e1e;">Click a card to auto-move or select!</span>
+    </div>
+    <div class="win-body" style="padding:0;background:#0b6623;">
+      <canvas id="sol-canvas" width="530" height="345" style="width:100%;flex:1;cursor:pointer;"></canvas>
+    </div>
+  </div>
+
+  <!-- ==================== WINDOW: 3D PINBALL SPACE CADET ==================== -->
+  <div id="win-pinball" class="xp-window" style="left:210px;top:14px;width:450px;height:465px;" onmousedown="focusWindow('pinball')">
+    <div class="xp-titlebar" onmousedown="startDrag(event, 'win-pinball')">
+      <span>3D Pinball for Windows — Space Cadet</span>
+      <div class="win-controls">
+        <div class="win-btn close" onclick="closeApp('pinball')">X</div>
+      </div>
+    </div>
+    <div class="win-toolbar" style="background:#1a1033;color:#00ffcc;">
+      <button class="xp-btn" onclick="resetPinballGame()">New Ball / Reset</button>
+      <button class="xp-btn" onmousedown="pinLeftFlip=true;playTone(260,30)" onmouseup="pinLeftFlip=false">⬅️ L-Flip (Z)</button>
+      <button class="xp-btn" onclick="launchPinballPlunger()">🚀 Launch (SPACE)</button>
+      <button class="xp-btn" onmousedown="pinRightFlip=true;playTone(290,30)" onmouseup="pinRightFlip=false">R-Flip (/) ➡️</button>
+    </div>
+    <div class="win-body" style="padding:0;background:#070412;flex-direction:row;">
+      <canvas id="pinball-canvas" width="290" height="395" style="background:#090518;border-right:2px solid #3593ff;"></canvas>
+      <div style="flex:1;padding:10px;color:#00ffcc;font-family:monospace;background:#110926;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:14px;font-weight:bold;color:#ff0;text-align:center;border:1px solid #55f;padding:4px;">
+          SPACE CADET
+        </div>
+        <div style="background:#000;border:2px inset #448;padding:6px;color:#ff3333;font-size:16px;text-align:right;" id="pin-score">
+          000000
+        </div>
+        <div style="color:#aaa;font-size:11px;">BALLS REMAINING: <span id="pin-balls" style="color:#fff;font-weight:bold;">3</span></div>
+        <div style="color:#55ffff;font-size:11px;" id="pin-mission">MISSION: HIT HYPERSPACE BUMPERS!</div>
+        <div style="margin-top:auto;font-size:10px;color:#bbb;line-height:1.5;border-top:1px solid #335;padding-top:6px;">
+          <b>CONTROLS:</b><br>
+          • <b>[SPACE]</b> Launch Ball<br>
+          • <b>[Z] / [Left]</b> L-Flipper<br>
+          • <b>[/] / [Right]</b> R-Flipper<br>
+          • <b>[X]</b> Table Nudge
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ---- WINDOW: MY COMPUTER (SD & FILE MANAGER) ---- -->
-  <div id="win-mycomp" class="xp-window" style="left:120px;top:28px;width:480px;height:340px;" onmousedown="focusWindow('mycomp')">
+  <div id="win-mycomp" class="xp-window" style="left:140px;top:38px;width:470px;height:330px;" onmousedown="focusWindow('mycomp')">
     <div class="xp-titlebar" onmousedown="startDrag(event, 'win-mycomp')">
       <span>My Computer — Virtual SD Card [D:\] Explorer</span>
       <div class="win-controls">
@@ -318,7 +542,7 @@
   </div>
 
   <!-- ---- WINDOW: NOTEPAD ---- -->
-  <div id="win-notepad" class="xp-window" style="left:160px;top:55px;width:460px;height:320px;" onmousedown="focusWindow('notepad')">
+  <div id="win-notepad" class="xp-window" style="left:160px;top:55px;width:450px;height:310px;" onmousedown="focusWindow('notepad')">
     <div class="xp-titlebar" onmousedown="startDrag(event, 'win-notepad')">
       <span id="notepad-title">Notepad — /NOTE.TXT</span>
       <div class="win-controls">
@@ -333,13 +557,13 @@
       <span id="notepad-status" style="color:#1b6b1b;font-weight:bold;margin-left:auto;"></span>
     </div>
     <div class="win-body">
-      <textarea id="notepad-area" style="flex:1;width:100%;resize:none;">Welcome to Windows XP Wonderland Web OS!
-Every file saved here is stored persistently in your virtual D:\ SD Card.</textarea>
+      <textarea id="notepad-area" style="flex:1;width:100%;resize:none;">Welcome to Windows XP Wonderland Web OS Build 5.0!
+Now with IE6 Albino Blacksheep, Minesweeper, Solitaire, MS Paint, and 3D Pinball!</textarea>
     </div>
   </div>
 
   <!-- ---- WINDOW: MSN MESSENGER 6.2 ---- -->
-  <div id="win-msn" class="xp-window" style="left:210px;top:40px;width:430px;height:350px;" onmousedown="focusWindow('msn')">
+  <div id="win-msn" class="xp-window" style="left:230px;top:50px;width:410px;height:330px;" onmousedown="focusWindow('msn')">
     <div class="xp-titlebar" onmousedown="startDrag(event, 'win-msn')">
       <span>MSN Messenger 6.2 — Wonderland P2P Link</span>
       <div class="win-controls">
@@ -349,14 +573,11 @@ Every file saved here is stored persistently in your virtual D:\ SD Card.</texta
     </div>
     <div class="win-toolbar" style="background:#3b779b;color:#fff;">
       <span>Handle:</span>
-      <input type="text" id="msn-handle" value="ALICE_WEB" style="width:95px;padding:2px 4px;font-size:11px;">
+      <input type="text" id="msn-handle" value="ALICE_XP" style="width:90px;padding:2px 4px;font-size:11px;">
       <button class="xp-btn" style="color:#c00;" onclick="sendMSNNudge()">NUDGE!</button>
       <button class="xp-btn" onclick="clearMSNChat()">Clear</button>
     </div>
     <div class="win-body" style="background:#dce6f4;">
-      <div style="font-size:10px;color:#335;margin-bottom:4px;">
-        Tip: Open this HTML file in a 2nd browser tab to chat &amp; trade NUDGES live across tabs!
-      </div>
       <div id="msn-chat-log" style="flex:1;background:#fff;border:1px solid #7f9db9;padding:8px;overflow-y:auto;font-family:monospace;line-height:1.45;"></div>
       <div style="display:flex;gap:6px;margin-top:6px;">
         <input type="text" id="msn-input" style="flex:1;" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMSNMessage()">
@@ -366,7 +587,7 @@ Every file saved here is stored persistently in your virtual D:\ SD Card.</texta
   </div>
 
   <!-- ---- WINDOW: TASK MANAGER ---- -->
-  <div id="win-taskmgr" class="xp-window" style="left:250px;top:65px;width:440px;height:330px;" onmousedown="focusWindow('taskmgr')">
+  <div id="win-taskmgr" class="xp-window" style="left:250px;top:65px;width:430px;height:320px;" onmousedown="focusWindow('taskmgr')">
     <div class="xp-titlebar" onmousedown="startDrag(event, 'win-taskmgr')">
       <span>Windows Task Manager — Performance</span>
       <div class="win-controls">
@@ -380,14 +601,13 @@ Every file saved here is stored persistently in your virtual D:\ SD Card.</texta
       <span id="task-uptime" style="margin-left:auto;font-family:monospace;font-weight:bold;">UPTIME: 00:00:00</span>
     </div>
     <div class="win-body">
-      <div style="font-weight:bold;color:#003399;margin-bottom:4px;">CPU Usage (Green) &amp; Virtual Heap Allocation (Yellow)</div>
       <canvas id="task-canvas" width="400" height="175" style="background:#000;border:2px inset #888;width:100%;flex:1;"></canvas>
       <div id="task-stats" style="margin-top:6px;font-family:monospace;font-weight:bold;color:#105e10;"></div>
     </div>
   </div>
 
   <!-- ---- WINDOW: DIRECTX DIAGNOSTIC TOOL (DXDIAG 3D) ---- -->
-  <div id="win-dxdiag" class="xp-window" style="left:190px;top:35px;width:480px;height:350px;" onmousedown="focusWindow('dxdiag')">
+  <div id="win-dxdiag" class="xp-window" style="left:200px;top:40px;width:460px;height:335px;" onmousedown="focusWindow('dxdiag')">
     <div class="xp-titlebar" onmousedown="startDrag(event, 'win-dxdiag')">
       <span>DirectX Diagnostic Tool — Direct3D Wireframe Test</span>
       <div class="win-controls">
@@ -401,20 +621,19 @@ Every file saved here is stored persistently in your virtual D:\ SD Card.</texta
       <button class="xp-btn" onclick="playDirectSoundTest()">DirectSound Sweep</button>
     </div>
     <div class="win-body" style="flex-direction:row;gap:10px;">
-      <canvas id="dx-canvas" width="240" height="240" style="background:#000;border:2px inset #888;flex:1;"></canvas>
-      <div style="width:175px;font-family:monospace;line-height:1.6;padding:4px;">
+      <canvas id="dx-canvas" width="230" height="230" style="background:#000;border:2px inset #888;flex:1;"></canvas>
+      <div style="width:170px;font-family:monospace;line-height:1.6;padding:4px;">
         <div style="color:#003399;font-weight:bold;">DIRECTX 9.0c WEB HAL</div>
         <div style="color:#106b10;">D3D Accel : ENABLED</div>
         <div style="color:#106b10;">AGP Tex   : ENABLED</div>
         <div>Renderer  : HTML5 2D/3D</div>
         <div>Audio     : WebAudio Synth</div>
-        <div id="dx-fps-readout" style="margin-top:10px;font-weight:bold;color:#003399;">FPS: 60</div>
       </div>
     </div>
   </div>
 
   <!-- ---- WINDOW: COM / WEBSERIAL TERMINAL ---- -->
-  <div id="win-term" class="xp-window" style="left:140px;top:70px;width:470px;height:320px;" onmousedown="focusWindow('term')">
+  <div id="win-term" class="xp-window" style="left:150px;top:70px;width:460px;height:310px;" onmousedown="focusWindow('term')">
     <div class="xp-titlebar" onmousedown="startDrag(event, 'win-term')">
       <span>HyperTerminal — COM1 / WebSerial Hardware Bridge</span>
       <div class="win-controls">
@@ -427,8 +646,8 @@ Every file saved here is stored persistently in your virtual D:\ SD Card.</texta
       <button class="xp-btn" onclick="document.getElementById('term-log').innerHTML=''">Clear</button>
     </div>
     <div class="win-body" style="background:#000;color:#00ff44;font-family:monospace;">
-      <div id="term-log" style="flex:1;overflow-y:auto;line-height:1.45;white-space:pre-wrap;">XP HyperTerminal v4.0 Ready.
-Type HELP, SYS, DIR, MSN, DX, BSOD, or REBOOT.
+      <div id="term-log" style="flex:1;overflow-y:auto;line-height:1.45;white-space:pre-wrap;">XP HyperTerminal v5.0 Ready.
+Type HELP, DIR, PINBALL, MINES, PAINT, SOL, ABS, BSOD, or REBOOT.
 </div>
       <div style="display:flex;gap:6px;margin-top:6px;border-top:1px solid #005500;padding-top:6px;">
         <span style="color:#ff0;line-height:26px;">COM1&gt;</span>
@@ -446,13 +665,17 @@ Type HELP, SYS, DIR, MSN, DX, BSOD, or REBOOT.
     <span>Administrator (Wonderland)</span>
   </div>
   <div class="sm-list">
-    <div class="sm-item" onclick="openApp('mycomp')"><span>My Computer (D:\ SD Card)</span><span>&gt;</span></div>
-    <div class="sm-item" onclick="openApp('notepad')"><span>Notepad Editor</span><span>&gt;</span></div>
-    <div class="sm-item" onclick="openApp('msn')"><span>MSN Messenger 6.2</span><span>&gt;</span></div>
-    <div class="sm-item" onclick="openApp('taskmgr')"><span>Windows Task Manager</span><span>&gt;</span></div>
-    <div class="sm-item" onclick="openApp('dxdiag')"><span>DirectX Diagnostic (DXDiag)</span><span>&gt;</span></div>
-    <div class="sm-item" onclick="openApp('term')"><span>COM / WebSerial Terminal</span><span>&gt;</span></div>
-    <div class="sm-item" onclick="openCMOSSetup()"><span>BIOS / Audio Setup...</span><span>DEL</span></div>
+    <div class="sm-item" onclick="openApp('ie6')"><span>🌐 Internet Explorer 6 (Albino Blacksheep)</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('pinball')"><span>🚀 3D Pinball — Space Cadet</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('mines')"><span>💣 Minesweeper</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('solitaire')"><span>🃏 Solitaire (Klondike)</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('paint')"><span>🎨 MS Paint</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('msn')"><span>💬 MSN Messenger 6.2</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('mycomp')"><span>💻 My Computer (D:\ SD Card)</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('notepad')"><span>📝 Notepad Editor</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('taskmgr')"><span>📈 Windows Task Manager</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('dxdiag')"><span>🧊 DirectX Diagnostic (DXDiag)</span><span>&gt;</span></div>
+    <div class="sm-item" onclick="openApp('term')"><span>📟 COM / WebSerial Terminal</span><span>&gt;</span></div>
   </div>
   <div class="sm-footer">
     <button class="xp-btn" onclick="location.reload()">Restart</button>
@@ -479,7 +702,7 @@ function ensureAudio() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
-function playTone(freq, ms, type = 'square', vol = 0.08) {
+function playTone(freq, ms, type = 'square', vol = 0.07) {
   if (audioMuted) return;
   try {
     ensureAudio();
@@ -496,28 +719,18 @@ function playTone(freq, ms, type = 'square', vol = 0.08) {
   } catch (e) {}
 }
 
-function playClick() { playTone(1350, 12, 'square', 0.04); }
-
+function playClick() { playTone(1350, 10, 'square', 0.035); }
 function simulateHDDSeek(bursts = 3) {
-  for (let i = 0; i < bursts; i++) {
-    setTimeout(() => playTone(45 + Math.random() * 35, 12, 'sawtooth', 0.05), i * 28);
-  }
+  for (let i = 0; i < bursts; i++) setTimeout(() => playTone(45 + Math.random() * 35, 10, 'sawtooth', 0.04), i * 26);
 }
-
 function playXPChime() {
   const notes = [622, 466, 698, 932];
   const delays = [0, 190, 340, 560];
   const durs = [180, 150, 220, 420];
-  notes.forEach((n, idx) => setTimeout(() => playTone(n, durs[idx], 'sine', 0.12), delays[idx]));
+  notes.forEach((n, idx) => setTimeout(() => playTone(n, durs[idx], 'sine', 0.11), delays[idx]));
 }
-
-function playMSNAlert() {
-  [587, 880, 1175].forEach((n, i) => setTimeout(() => playTone(n, 90, 'triangle', 0.1), i * 95));
-}
-
-function playDirectSoundTest() {
-  [440, 554, 659, 880].forEach((n, i) => setTimeout(() => playTone(n, 110, 'sine', 0.11), i * 115));
-}
+function playMSNAlert() { [587, 880, 1175].forEach((n, i) => setTimeout(() => playTone(n, 85, 'triangle', 0.09), i * 95)); }
+function playDirectSoundTest() { [440, 554, 659, 880].forEach((n, i) => setTimeout(() => playTone(n, 110, 'sine', 0.1), i * 115)); }
 
 function toggleAudioMute() {
   audioMuted = !audioMuted;
@@ -531,30 +744,29 @@ let inCMOS = false;
 
 function startBIOSPost() {
   let ram = 0;
-  const maxRam = 262144;
+  const maxRam = 524288;
   const ramEl = document.getElementById('bios-ram');
   const drivesEl = document.getElementById('bios-drives');
 
   postTimer = setInterval(() => {
     if (inCMOS) return;
-    ram += 16384;
+    ram += 32768;
     if (ram >= maxRam) {
       ram = maxRam;
       clearInterval(postTimer);
-      playTone(1000, 110);
+      playTone(1000, 100);
       drivesEl.innerHTML = `
         <div>Detecting Primary Master   ... LocalStorage SPIFFS Cluster OK</div>
         <div>Detecting Secondary Master ... Virtual SDHC Card [D:] Mounted</div>
         <div style="color:#00ff66;margin-top:8px;">Verifying DMI Pool Data ........ Update Success</div>
-        <div style="margin-top:6px;">Booting from Primary Master (Windows XP)...</div>
       `;
-      simulateHDDSeek(6);
-      setTimeout(launchXPBootSplash, 1100);
+      simulateHDDSeek(5);
+      setTimeout(launchXPBootSplash, 700);
     } else {
-      playTone(900, 6, 'square', 0.02);
+      playTone(950, 5, 'square', 0.02);
     }
     ramEl.textContent = ram;
-  }, 65);
+  }, 50);
 }
 
 function openCMOSSetup() {
@@ -562,41 +774,36 @@ function openCMOSSetup() {
   playClick();
   document.getElementById('cmos-screen').style.display = 'block';
 }
-
 function resumeBootFromBIOS() {
   inCMOS = false;
   playClick();
   document.getElementById('cmos-screen').style.display = 'none';
-  if (document.getElementById('bios-screen').style.display !== 'none') {
-    launchXPBootSplash();
-  }
+  if (document.getElementById('bios-screen').style.display !== 'none') launchXPBootSplash();
 }
-
 function launchXPBootSplash() {
   clearInterval(postTimer);
   document.getElementById('bios-screen').style.display = 'none';
+  document.getElementById('cmos-screen').style.display = 'none';
   const boot = document.getElementById('xp-boot-screen');
   boot.style.display = 'flex';
-  simulateHDDSeek(5);
+  simulateHDDSeek(4);
   setTimeout(() => {
     boot.style.display = 'none';
     playXPChime();
-    openApp('msn');
-    openApp('mycomp');
-  }, 1600);
+    openApp('ie6');
+  }, 1200);
 }
-
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Delete' && document.getElementById('bios-screen').style.display !== 'none') {
-    openCMOSSetup();
-  }
-});
 
 // ==================== WINDOW MANAGER ====================
 const appNames = {
+  ie6: 'Internet Explorer',
+  pinball: '3D Pinball',
+  mines: 'Minesweeper',
+  solitaire: 'Solitaire',
+  paint: 'MS Paint',
+  msn: 'MSN Messenger',
   mycomp: 'My Computer',
   notepad: 'Notepad',
-  msn: 'MSN Messenger',
   taskmgr: 'Task Manager',
   dxdiag: 'DXDiag 3D',
   term: 'COM Terminal'
@@ -626,6 +833,7 @@ function openApp(id) {
   }
   document.getElementById('start-menu').style.display = 'none';
   if (id === 'mycomp') renderSDFileList();
+  if (id === 'solitaire') drawSolitaireBoard();
 }
 
 function closeApp(id) {
@@ -662,14 +870,12 @@ function toggleStartMenu(e) {
   const sm = document.getElementById('start-menu');
   sm.style.display = (sm.style.display === 'block') ? 'none' : 'block';
 }
-
 function closeStartMenuIfOpen(e) {
   if (!e.target.closest('#start-menu') && !e.target.closest('#start-btn')) {
     document.getElementById('start-menu').style.display = 'none';
   }
 }
 
-// Dragging Logic
 let dragTarget = null, dragOffX = 0, dragOffY = 0;
 function startDrag(e, winId) {
   if (e.target.classList.contains('win-btn')) return;
@@ -686,8 +892,755 @@ window.addEventListener('mousemove', (e) => {
 });
 window.addEventListener('mouseup', () => { dragTarget = null; });
 
+// ==================== 1. IE6 & ALBINO BLACKSHEEP FLASH ENGINE ====================
+let currentFlash = 'ze_world';
+let flashFrame = 0;
+let flashPaused = false;
+
+function ieNavigate(url) {
+  document.getElementById('ie6-url').value = url;
+  ieGoBar();
+}
+
+function ieGoBar() {
+  const url = document.getElementById('ie6-url').value.trim();
+  const absDiv = document.getElementById('abs-container');
+  const iframe = document.getElementById('ie6-iframe');
+  playClick();
+  if (url.toLowerCase().includes('albinoblacksheep')) {
+    iframe.style.display = 'none';
+    absDiv.style.display = 'flex';
+  } else {
+    absDiv.style.display = 'none';
+    iframe.style.display = 'block';
+    iframe.src = url.startsWith('http') ? url : 'https://' + url;
+  }
+}
+
+function iePlayFlash(swfId) {
+  currentFlash = swfId;
+  flashFrame = 0;
+  flashPaused = false;
+  document.getElementById('abs-container').style.display = 'flex';
+  document.getElementById('ie6-iframe').style.display = 'none';
+  document.getElementById('ie6-url').value = `http://www.albinoblacksheep.com/flash/${swfId}.php`;
+  const titles = {
+    ze_world: 'STAGE: wtfmate.swf — The End of the World',
+    badgers:  'STAGE: badgers.swf — Badger Badger Mushroom',
+    llama:    'STAGE: llama.swf — The Llama Song',
+    shfifty:  'STAGE: shfiftyfive.swf — Shfifty Five'
+  };
+  document.getElementById('swf-title').textContent = titles[swfId] || 'STAGE: movie.swf';
+  triggerFlashSoundEffect();
+}
+
+function toggleFlashPause() {
+  flashPaused = !flashPaused;
+  document.getElementById('swf-play-btn').textContent = flashPaused ? 'Resume SWF' : 'Pause SWF';
+}
+
+function triggerFlashSoundEffect() {
+  if (currentFlash === 'ze_world') {
+    [440, 523, 659, 392, 330].forEach((f, i) => setTimeout(() => playTone(f, 80, 'sawtooth', 0.08), i * 90));
+  } else if (currentFlash === 'badgers') {
+    [330, 330, 330, 330, 440, 494].forEach((f, i) => setTimeout(() => playTone(f, 75, 'square', 0.07), i * 100));
+  } else if (currentFlash === 'llama') {
+    [523, 587, 659, 523, 698, 659].forEach((f, i) => setTimeout(() => playTone(f, 80, 'triangle', 0.09), i * 95));
+  } else {
+    [293, 392, 440, 587].forEach((f, i) => setTimeout(() => playTone(f, 95, 'sine', 0.09), i * 110));
+  }
+}
+
+function renderAlbinoFlashStage() {
+  const win = document.getElementById('win-ie6');
+  if (win && win.style.display === 'flex' && !flashPaused) {
+    flashFrame++;
+    const canvas = document.getElementById('abs-stage');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const subEl = document.getElementById('swf-subtitle');
+
+    if (currentFlash === 'ze_world') {
+      ctx.fillStyle = '#070b19';
+      ctx.fillRect(0, 0, w, h);
+      // Spinning Earth
+      ctx.save();
+      ctx.translate(w / 2, h / 2 - 10);
+      ctx.fillStyle = '#1e78ff';
+      ctx.beginPath(); ctx.arc(0, 0, 52, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#2dc653';
+      const rot = (flashFrame % 120) - 60;
+      ctx.fillRect(-25 + rot * 0.3, -25, 28, 22);
+      ctx.fillRect(5 - rot * 0.2, 5, 24, 26);
+      // Flying ICBM Missiles
+      const mX = ((flashFrame * 3) % 260) - 130;
+      ctx.strokeStyle = '#ff3300'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-120, -40); ctx.lineTo(mX, Math.sin(flashFrame * 0.1) * 30); ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.fillText('🚀 WTF MATE?!', mX - 20, Math.sin(flashFrame * 0.1) * 30 - 6);
+      ctx.restore();
+      const lines = [
+        '"Hokay, so here\'s the Earth... chillin\'"',
+        '"Fire ze missiles! — But I am le tired..."',
+        '"Well, have a nap, ZEN FIRE ZE MISSILES!"',
+        '"Australia is down there like: WTF mate?!"'
+      ];
+      subEl.textContent = lines[Math.floor(flashFrame / 85) % lines.length];
+    }
+    else if (currentFlash === 'badgers') {
+      const isSnake = (flashFrame % 240) > 195;
+      const isMush = (flashFrame % 240) > 150 && !isSnake;
+      ctx.fillStyle = isSnake ? '#d97706' : '#38b000';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#1d3557';
+      ctx.fillRect(0, 0, w, 65);
+      if (isSnake) {
+        ctx.fillStyle = '#00ff00';
+        ctx.font = 'bold 26px Tahoma';
+        ctx.fillText('🐍 SNAAAKE! OOH IT\'S A SNAKE!', 14, 130);
+        subEl.textContent = '"ARGH! SNAKE! A SNAAAAKE!"';
+      } else if (isMush) {
+        ctx.fillStyle = '#e63946';
+        ctx.beginPath(); ctx.arc(w / 2, 115, 42, Math.PI, 0); ctx.fill();
+        ctx.fillStyle = '#f1faee';
+        ctx.fillRect(w / 2 - 14, 115, 28, 45);
+        subEl.textContent = '"MUSHROOM! MUSHROOM!"';
+      } else {
+        for (let i = 0; i < 4; i++) {
+          const bounce = Math.abs(Math.sin((flashFrame + i * 12) * 0.18)) * 28;
+          const bx = 48 + i * 78, by = 145 - bounce;
+          ctx.fillStyle = '#222';
+          ctx.fillRect(bx - 18, by - 25, 36, 42);
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(bx - 6, by - 25, 12, 22);
+        }
+        subEl.textContent = '"Badger, badger, badger, badger, badger..."';
+      }
+    }
+    else if (currentFlash === 'llama') {
+      ctx.fillStyle = '#5a3e28';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#f4a261';
+      const bob = Math.sin(flashFrame * 0.15) * 12;
+      ctx.fillRect(w / 2 - 35, 70 + bob, 70, 90);
+      ctx.fillStyle = '#000';
+      ctx.font = 'bold 20px Courier New';
+      ctx.fillText('🦙 LLAMA DUCK!', w / 2 - 80, 45);
+      const lLines = [
+        '"Here\'s a llama, there\'s a llama..."',
+        '"And another little llama, fuzzy llama!"',
+        '"Llama, llama, duck!"',
+        '"I was once a treehouse, I lived in a cake..."'
+      ];
+      subEl.textContent = lLines[Math.floor(flashFrame / 75) % lLines.length];
+    }
+    else {
+      ctx.fillStyle = '#111';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#ff0055';
+      ctx.font = 'bold 42px Impact, sans-serif';
+      ctx.fillText('SHFIFTY FIVE!', 48 + Math.sin(flashFrame * 0.12) * 15, 115);
+      ctx.fillStyle = '#00ffcc';
+      ctx.font = 'bold 16px monospace';
+      ctx.fillText('5 + 5 IS FIFTY FIFTY FIFTY!', 55, 160);
+      subEl.textContent = '"Girlfriend\'s age? Shfifty-five!"';
+    }
+  }
+}
+
+// ==================== 2. MINESWEEPER ENGINE ====================
+const M_ROWS = 9, M_COLS = 9, M_MINES = 10;
+let mineBoard = [];
+let mineRevealed = [];
+let mineFlagged = [];
+let mineGameOver = false;
+let mineTimer = 0;
+let mineInterval = null;
+let mineStarted = false;
+
+function initMinesweeper() {
+  clearInterval(mineInterval);
+  mineTimer = 0;
+  mineStarted = false;
+  mineGameOver = false;
+  document.getElementById('mine-smiley').textContent = '🙂';
+  document.getElementById('mine-count-led').textContent = '010';
+  document.getElementById('mine-timer-led').textContent = '000';
+
+  mineBoard = Array.from({ length: M_ROWS }, () => Array(M_COLS).fill(0));
+  mineRevealed = Array.from({ length: M_ROWS }, () => Array(M_COLS).fill(false));
+  mineFlagged = Array.from({ length: M_ROWS }, () => Array(M_COLS).fill(false));
+
+  let placed = 0;
+  while (placed < M_MINES) {
+    const r = Math.floor(Math.random() * M_ROWS);
+    const c = Math.floor(Math.random() * M_COLS);
+    if (mineBoard[r][c] !== -1) {
+      mineBoard[r][c] = -1;
+      placed++;
+    }
+  }
+
+  for (let r = 0; r < M_ROWS; r++) {
+    for (let c = 0; c < M_COLS; c++) {
+      if (mineBoard[r][c] === -1) continue;
+      let count = 0;
+      for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
+          const nr = r + dr, nc = c + dc;
+          if (nr >= 0 && nr < M_ROWS && nc >= 0 && nc < M_COLS && mineBoard[nr][nc] === -1) count++;
+        }
+      }
+      mineBoard[r][c] = count;
+    }
+  }
+  renderMineGrid();
+}
+
+function renderMineGrid() {
+  const grid = document.getElementById('mine-grid');
+  grid.innerHTML = '';
+  const numColors = ['', '#0000ff', '#008000', '#ff0000', '#000080', '#800000', '#008080', '#000', '#808080'];
+  let flagsUsed = 0;
+
+  for (let r = 0; r < M_ROWS; r++) {
+    for (let c = 0; c < M_COLS; c++) {
+      if (mineFlagged[r][c]) flagsUsed++;
+      const cell = document.createElement('div');
+      cell.className = 'mine-cell' + (mineRevealed[r][c] ? ' revealed' : '');
+      if (mineRevealed[r][c]) {
+        if (mineBoard[r][c] === -1) {
+          cell.textContent = '💣';
+          cell.classList.add('boom');
+        } else if (mineBoard[r][c] > 0) {
+          cell.textContent = mineBoard[r][c];
+          cell.style.color = numColors[mineBoard[r][c]];
+        }
+      } else if (mineFlagged[r][c]) {
+        cell.textContent = '🚩';
+      }
+      cell.onmousedown = (e) => {
+        if (mineGameOver) return;
+        if (!mineStarted) {
+          mineStarted = true;
+          mineInterval = setInterval(() => {
+            mineTimer = Math.min(999, mineTimer + 1);
+            document.getElementById('mine-timer-led').textContent = String(mineTimer).padStart(3, '0');
+          }, 1000);
+        }
+        if (e.button === 2) {
+          if (!mineRevealed[r][c]) {
+            mineFlagged[r][c] = !mineFlagged[r][c];
+            playClick();
+            renderMineGrid();
+          }
+        } else if (e.button === 0 && !mineFlagged[r][c]) {
+          revealMineCell(r, c);
+        }
+      };
+      grid.appendChild(cell);
+    }
+  }
+  const rem = Math.max(0, M_MINES - flagsUsed);
+  document.getElementById('mine-count-led').textContent = String(rem).padStart(3, '0');
+}
+
+function revealMineCell(r, c) {
+  if (r < 0 || r >= M_ROWS || c < 0 || c >= M_COLS || mineRevealed[r][c] || mineFlagged[r][c]) return;
+  mineRevealed[r][c] = true;
+  if (mineBoard[r][c] === -1) {
+    mineGameOver = true;
+    clearInterval(mineInterval);
+    document.getElementById('mine-smiley').textContent = '😵';
+    playTone(150, 350, 'sawtooth', 0.15);
+    for (let rr = 0; rr < M_ROWS; rr++) for (let cc = 0; cc < M_COLS; cc++) mineRevealed[rr][cc] = true;
+    renderMineGrid();
+    return;
+  }
+  playClick();
+  if (mineBoard[r][c] === 0) {
+    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) revealMineCell(r + dr, c + dc);
+  }
+  // Check Win
+  let unrevealedSafe = 0;
+  for (let rr = 0; rr < M_ROWS; rr++) {
+    for (let cc = 0; cc < M_COLS; cc++) {
+      if (!mineRevealed[rr][cc] && mineBoard[rr][cc] !== -1) unrevealedSafe++;
+    }
+  }
+  if (unrevealedSafe === 0) {
+    mineGameOver = true;
+    clearInterval(mineInterval);
+    document.getElementById('mine-smiley').textContent = '😎';
+    playXPChime();
+  }
+  renderMineGrid();
+}
+
+// ==================== 3. MS PAINT ENGINE ====================
+let paintTool = 'pencil';
+let paintColor = '#000000';
+let isPainting = false;
+let paintStartX = 0, paintStartY = 0;
+let paintSnapshot = null;
+
+function initMSPaint() {
+  const colors = [
+    '#000000','#808080','#800000','#808000','#008000','#008080','#000080','#800080',
+    '#ffffff','#c0c0c0','#ff0000','#ffff00','#00ff00','#00ffff','#0000ff','#ff00ff'
+  ];
+  const pal = document.getElementById('paint-palette');
+  pal.innerHTML = '';
+  colors.forEach(c => {
+    const sw = document.createElement('div');
+    sw.style.cssText = `width:18px;height:18px;background:${c};border:1px solid #333;cursor:pointer;`;
+    sw.onclick = () => {
+      paintColor = c;
+      document.getElementById('paint-active-swatch').style.background = c;
+      playClick();
+    };
+    pal.appendChild(sw);
+  });
+
+  const canvas = document.getElementById('paint-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  canvas.onmousedown = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    paintStartX = e.clientX - rect.left;
+    paintStartY = e.clientY - rect.top;
+    if (paintTool === 'fill') {
+      ctx.fillStyle = paintColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      playTone(600, 40);
+      return;
+    }
+    isPainting = true;
+    paintSnapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.moveTo(paintStartX, paintStartY);
+  };
+
+  canvas.onmousemove = (e) => {
+    if (!isPainting) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    ctx.strokeStyle = (paintTool === 'eraser') ? '#ffffff' : paintColor;
+    ctx.lineWidth = (paintTool === 'brush' || paintTool === 'eraser') ? 8 : 2;
+    ctx.lineCap = 'round';
+
+    if (paintTool === 'pencil' || paintTool === 'brush' || paintTool === 'eraser') {
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    } else {
+      ctx.putImageData(paintSnapshot, 0, 0);
+      ctx.beginPath();
+      if (paintTool === 'line') {
+        ctx.moveTo(paintStartX, paintStartY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      } else if (paintTool === 'rect') {
+        ctx.strokeRect(paintStartX, paintStartY, x - paintStartX, y - paintStartY);
+      } else if (paintTool === 'circle') {
+        const rad = Math.hypot(x - paintStartX, y - paintStartY);
+        ctx.arc(paintStartX, paintStartY, rad, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+  };
+  window.addEventListener('mouseup', () => { isPainting = false; });
+}
+
+function setPaintTool(t) {
+  paintTool = t;
+  document.querySelectorAll('[id^="ptool-"]').forEach(b => b.classList.remove('active-tool'));
+  const btn = document.getElementById('ptool-' + t);
+  if (btn) btn.classList.add('active-tool');
+  playClick();
+}
+
+function clearPaintCanvas() {
+  const canvas = document.getElementById('paint-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  playClick();
+}
+
+function savePaintToSD() {
+  const canvas = document.getElementById('paint-canvas');
+  const files = getSDFiles();
+  const fn = `/ART_${Math.floor(performance.now() / 1000)}.BMP.TXT`;
+  files[fn] = `[MS PAINT BITMAP EXPORT]\nDIMENSIONS: ${canvas.width}x${canvas.height}\nDATA_URI_HEADER: ${canvas.toDataURL().slice(0, 96)}...`;
+  saveSDFiles(files);
+  playTone(1500, 90);
+  document.getElementById('paint-status').textContent = 'Saved ' + fn + '!';
+}
+
+// ==================== 4. KLONDIKE SOLITAIRE ENGINE ====================
+const SUITS = ['♠', '♥', '♣', '♦'];
+let solStock = [], solWaste = [], solFoundations = [[], [], [], []], solTableau = [[], [], [], [], [], [], []];
+let solWaterfallActive = false;
+
+function initSolitaire() {
+  solWaterfallActive = false;
+  const deck = [];
+  for (let s = 0; s < 4; s++) {
+    for (let v = 1; v <= 13; v++) {
+      deck.push({ suit: s, val: v, red: (s === 1 || s === 3), faceUp: false });
+    }
+  }
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  solTableau = [[], [], [], [], [], [], []];
+  for (let col = 0; col < 7; col++) {
+    for (let row = 0; row <= col; row++) {
+      const card = deck.pop();
+      card.faceUp = (row === col);
+      solTableau[col].push(card);
+    }
+  }
+  solStock = deck;
+  solWaste = [];
+  solFoundations = [[], [], [], []];
+  drawSolitaireBoard();
+}
+
+function cardLabel(v) {
+  return v === 1 ? 'A' : v === 11 ? 'J' : v === 12 ? 'Q' : v === 13 ? 'K' : String(v);
+}
+
+function drawCardRect(ctx, x, y, card) {
+  ctx.fillStyle = card.faceUp ? '#ffffff' : '#1d4ed8';
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 1.5;
+  ctx.fillRect(x, y, 58, 78);
+  ctx.strokeRect(x, y, 58, 78);
+  if (!card.faceUp) {
+    ctx.strokeStyle = '#93c5fd';
+    ctx.strokeRect(x + 4, y + 4, 50, 70);
+    return;
+  }
+  ctx.fillStyle = card.red ? '#dc2626' : '#111111';
+  ctx.font = 'bold 13px Tahoma';
+  ctx.fillText(cardLabel(card.val) + SUITS[card.suit], x + 5, y + 16);
+  ctx.font = '22px Tahoma';
+  ctx.fillText(SUITS[card.suit], x + 20, y + 48);
+}
+
+function drawSolitaireBoard() {
+  if (solWaterfallActive) return;
+  const canvas = document.getElementById('sol-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0b6623';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Stock & Waste
+  ctx.strokeStyle = '#053b12';
+  ctx.strokeRect(16, 12, 58, 78);
+  if (solStock.length > 0) drawCardRect(ctx, 16, 12, { faceUp: false });
+  if (solWaste.length > 0) drawCardRect(ctx, 88, 12, solWaste[solWaste.length - 1]);
+
+  // 4 Foundations
+  for (let f = 0; f < 4; f++) {
+    const fx = 230 + f * 72;
+    ctx.strokeStyle = '#22c55e';
+    ctx.strokeRect(fx, 12, 58, 78);
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.font = '20px Tahoma';
+    ctx.fillText(SUITS[f], fx + 21, 56);
+    const pile = solFoundations[f];
+    if (pile.length > 0) drawCardRect(ctx, fx, 12, pile[pile.length - 1]);
+  }
+
+  // 7 Tableau Columns
+  for (let col = 0; col < 7; col++) {
+    const cx = 16 + col * 72;
+    const pile = solTableau[col];
+    for (let idx = 0; idx < pile.length; idx++) {
+      drawCardRect(ctx, cx, 106 + idx * 19, pile[idx]);
+    }
+  }
+}
+
+function tryAutoMoveCard(card) {
+  // 1. Try Foundation
+  const fPile = solFoundations[card.suit];
+  const neededVal = fPile.length + 1;
+  if (card.val === neededVal) {
+    fPile.push(card);
+    playTone(880, 45);
+    return true;
+  }
+  // 2. Try Tableau Column
+  for (let col = 0; col < 7; col++) {
+    const tPile = solTableau[col];
+    if (tPile.length === 0 && card.val === 13) {
+      tPile.push(card);
+      playClick();
+      return true;
+    } else if (tPile.length > 0) {
+      const top = tPile[tPile.length - 1];
+      if (top.faceUp && top.red !== card.red && top.val === card.val + 1) {
+        tPile.push(card);
+        playClick();
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+document.getElementById('sol-canvas').addEventListener('mousedown', (e) => {
+  if (solWaterfallActive) { initSolitaire(); return; }
+  const rect = e.target.getBoundingClientRect();
+  const x = (e.clientX - rect.left) * (e.target.width / rect.width);
+  const y = (e.clientY - rect.top) * (e.target.height / rect.height);
+
+  // Click Stock Pile
+  if (x >= 16 && x <= 74 && y >= 12 && y <= 90) {
+    playClick();
+    if (solStock.length > 0) {
+      const c = solStock.pop();
+      c.faceUp = true;
+      solWaste.push(c);
+    } else {
+      while (solWaste.length > 0) {
+        const c = solWaste.pop();
+        c.faceUp = false;
+        solStock.push(c);
+      }
+    }
+    drawSolitaireBoard();
+    return;
+  }
+  // Click Waste Pile
+  if (x >= 88 && x <= 146 && y >= 12 && y <= 90 && solWaste.length > 0) {
+    const top = solWaste[solWaste.length - 1];
+    if (tryAutoMoveCard(top)) solWaste.pop();
+    drawSolitaireBoard();
+    return;
+  }
+  // Click Tableau Columns
+  if (y >= 106) {
+    const col = Math.floor((x - 16) / 72);
+    if (col >= 0 && col < 7 && solTableau[col].length > 0) {
+      const pile = solTableau[col];
+      const top = pile[pile.length - 1];
+      if (!top.faceUp) {
+        top.faceUp = true;
+        playClick();
+      } else if (tryAutoMoveCard(top)) {
+        pile.pop();
+        if (pile.length > 0) pile[pile.length - 1].faceUp = true;
+      }
+      drawSolitaireBoard();
+    }
+  }
+});
+
+function triggerSolitaireWaterfall() {
+  solWaterfallActive = true;
+  const canvas = document.getElementById('sol-canvas');
+  const ctx = canvas.getContext('2d');
+  let vx = -4.2, vy = -2;
+  let cx = 360, cy = 20, suit = 0, val = 13;
+  playXPChime();
+
+  function stepWaterfall() {
+    if (!solWaterfallActive) return;
+    cx += vx; cy += vy; vy += 0.48;
+    if (cy + 78 > canvas.height) {
+      cy = canvas.height - 78;
+      vy = -vy * 0.78;
+      playTone(300 + val * 30, 15);
+    }
+    drawCardRect(ctx, cx, cy, { suit, val, red: (suit % 2 === 1), faceUp: true });
+    if (cx < -60) {
+      cx = 230 + ((suit = (suit + 1) % 4) * 72);
+      cy = 12;
+      vx = -3 - Math.random() * 3.5;
+      vy = -1;
+      val = (val > 1) ? val - 1 : 13;
+    }
+    requestAnimationFrame(stepWaterfall);
+  }
+  requestAnimationFrame(stepWaterfall);
+}
+
+// ==================== 5. 3D PINBALL SPACE CADET ENGINE ====================
+let pinBall = { x: 268, y: 340, vx: 0, vy: 0, inPlay: false };
+let pinScore = 0;
+let pinBallsLeft = 3;
+let pinLeftFlip = false;
+let pinRightFlip = false;
+const pinBumpers = [
+  { x: 105, y: 95,  r: 18, col: '#ff0066', pts: 250, flash: 0 },
+  { x: 175, y: 95,  r: 18, col: '#00ffcc', pts: 250, flash: 0 },
+  { x: 140, y: 148, r: 20, col: '#ffcc00', pts: 500, flash: 0 },
+  { x: 85,  y: 195, r: 14, col: '#9933ff', pts: 150, flash: 0 },
+  { x: 195, y: 195, r: 14, col: '#9933ff', pts: 150, flash: 0 }
+];
+
+function resetPinballGame() {
+  pinScore = 0;
+  pinBallsLeft = 3;
+  respawnPinball();
+  updatePinballHUD();
+}
+
+function respawnPinball() {
+  pinBall = { x: 268, y: 345, vx: 0, vy: 0, inPlay: false };
+}
+
+function launchPinballPlunger() {
+  if (!pinBall.inPlay && pinBallsLeft > 0) {
+    pinBall.vy = -10.5 - Math.random() * 1.5;
+    pinBall.vx = -1.8;
+    pinBall.inPlay = true;
+    playTone(220, 70);
+    setTimeout(() => playTone(440, 90), 75);
+  }
+}
+
+function updatePinballHUD() {
+  document.getElementById('pin-score').textContent = String(pinScore).padStart(6, '0');
+  document.getElementById('pin-balls').textContent = pinBallsLeft;
+}
+
+window.addEventListener('keydown', (e) => {
+  if (activeAppId !== 'pinball') return;
+  if (e.key === 'z' || e.key === 'Z' || e.key === 'ArrowLeft') { pinLeftFlip = true; playTone(240, 20); }
+  if (e.key === '/' || e.key === '.' || e.key === 'ArrowRight') { pinRightFlip = true; playTone(270, 20); }
+  if (e.code === 'Space') { e.preventDefault(); launchPinballPlunger(); }
+  if (e.key === 'x' || e.key === 'X') { pinBall.vx += (Math.random() - 0.5) * 4; pinBall.vy -= 1.5; }
+});
+window.addEventListener('keyup', (e) => {
+  if (e.key === 'z' || e.key === 'Z' || e.key === 'ArrowLeft') pinLeftFlip = false;
+  if (e.key === '/' || e.key === '.' || e.key === 'ArrowRight') pinRightFlip = false;
+});
+
+function updateAndDrawPinball() {
+  const win = document.getElementById('win-pinball');
+  if (!win || win.style.display !== 'flex') return;
+  const canvas = document.getElementById('pinball-canvas');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  // Starfield Table Background
+  ctx.fillStyle = '#090518';
+  ctx.fillRect(0, 0, w, h);
+
+  // Outer Table Rails & Plunger Lane
+  ctx.strokeStyle = '#3b82f6';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(10, 10, w - 20, h - 16);
+  ctx.beginPath(); ctx.moveTo(252, 75); ctx.lineTo(252, h - 10); ctx.stroke();
+
+  // Top Curved Deflector Arch
+  ctx.beginPath(); ctx.arc(145, 70, 125, Math.PI, 0); ctx.stroke();
+
+  // Physics Step
+  if (pinBall.inPlay) {
+    pinBall.vy += 0.17; // Gravity
+    pinBall.x += pinBall.vx;
+    pinBall.y += pinBall.vy;
+
+    // Wall bounces
+    if (pinBall.x < 20) { pinBall.x = 20; pinBall.vx = Math.abs(pinBall.vx) * 0.85; playTone(180, 15); }
+    if (pinBall.x > 244 && pinBall.y > 75) { pinBall.x = 244; pinBall.vx = -Math.abs(pinBall.vx) * 0.85; }
+    if (pinBall.y < 22) { pinBall.y = 22; pinBall.vy = Math.abs(pinBall.vy) * 0.85; if (pinBall.x > 230) pinBall.vx = -3.2; }
+
+    // Slingshot Angled Funnels
+    if (pinBall.y > 285 && pinBall.y < 345) {
+      if (pinBall.x < 72) { pinBall.vx = Math.abs(pinBall.vx) + 1.8; pinBall.vy = -3.5; }
+      if (pinBall.x > 192 && pinBall.x < 245) { pinBall.vx = -Math.abs(pinBall.vx) - 1.8; pinBall.vy = -3.5; }
+    }
+
+    // Bumper Collisions
+    pinBumpers.forEach(b => {
+      const dx = pinBall.x - b.x, dy = pinBall.y - b.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < b.r + 7) {
+        const nx = dx / (dist || 1), ny = dy / (dist || 1);
+        pinBall.vx = nx * 5.6;
+        pinBall.vy = ny * 5.6;
+        pinScore += b.pts;
+        b.flash = 8;
+        updatePinballHUD();
+        playTone(520 + (b.pts / 2), 45, 'triangle', 0.11);
+      }
+    });
+
+    // Left Flipper Collision (x: 68..124, y: 348)
+    if (pinBall.x >= 62 && pinBall.x <= 128 && pinBall.y >= 336 && pinBall.y <= 362) {
+      pinBall.y = 335;
+      pinBall.vy = pinLeftFlip ? -8.8 : -Math.abs(pinBall.vy) * 0.65;
+      pinBall.vx += (pinBall.x - 95) * 0.08 + (pinLeftFlip ? 1.5 : 0);
+      if (pinLeftFlip) { pinScore += 50; updatePinballHUD(); }
+    }
+    // Right Flipper Collision (x: 138..194, y: 348)
+    if (pinBall.x >= 134 && pinBall.x <= 200 && pinBall.y >= 336 && pinBall.y <= 362) {
+      pinBall.y = 335;
+      pinBall.vy = pinRightFlip ? -8.8 : -Math.abs(pinBall.vy) * 0.65;
+      pinBall.vx += (pinBall.x - 166) * 0.08 - (pinRightFlip ? 1.5 : 0);
+      if (pinRightFlip) { pinScore += 50; updatePinballHUD(); }
+    }
+
+    // Drain Check
+    if (pinBall.y > h - 8) {
+      pinBallsLeft--;
+      playTone(130, 260, 'sawtooth', 0.12);
+      updatePinballHUD();
+      if (pinBallsLeft > 0) respawnPinball();
+      else {
+        document.getElementById('pin-mission').textContent = 'GAME OVER! CLICK NEW BALL';
+        pinBall.inPlay = false;
+      }
+    }
+  }
+
+  // Draw Neon Hyperspace Bumpers
+  pinBumpers.forEach(b => {
+    ctx.fillStyle = b.flash > 0 ? '#ffffff' : b.col;
+    if (b.flash > 0) b.flash--;
+    ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = '#000'; ctx.font = 'bold 10px monospace';
+    ctx.fillText(b.pts, b.x - 9, b.y + 4);
+  });
+
+  // Draw Funnel Guides
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(22, 285); ctx.lineTo(68, 345); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(240, 285); ctx.lineTo(194, 345); ctx.stroke();
+
+  // Draw Flippers
+  ctx.strokeStyle = '#00ffcc'; ctx.lineWidth = 7; ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(68, 348);
+  ctx.lineTo(122, pinLeftFlip ? 328 : 356);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(194, 348);
+  ctx.lineTo(140, pinRightFlip ? 328 : 356);
+  ctx.stroke();
+
+  // Draw Silver Pinball
+  ctx.fillStyle = '#e2e8f0';
+  ctx.beginPath(); ctx.arc(pinBall.x, pinBall.y, 7, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+}
+
 // ==================== VIRTUAL SD CARD (LOCALSTORAGE) ====================
-const SD_KEY = 'xp_wonderland_sd_v4';
+const SD_KEY = 'xp_wonderland_sd_v5';
 let currentFile = '/NOTE.TXT';
 let selectedSDFile = '/NOTE.TXT';
 
@@ -697,8 +1650,8 @@ function getSDFiles() {
     if (raw) return JSON.parse(raw);
   } catch (e) {}
   const defaults = {
-    '/NOTE.TXT': 'Welcome to Windows XP Wonderland Web OS!\nEdit and save files directly to your virtual SD card.',
-    '/README.TXT': 'Magic Goat Studio XP Build 4.0\nSupports 3D DXDiag, TaskMgr, and Multi-Tab MSN Chat!',
+    '/NOTE.TXT': 'Welcome to Windows XP Wonderland Web OS Build 5.0!\nIncludes IE6 Albino Blacksheep, 3D Pinball, Solitaire, Minesweeper & MS Paint!',
+    '/ALBINO_FAVS.TXT': '1. wtfmate.swf (End of Ze World)\n2. badgers.swf (Weebl)\n3. llama.swf\n4. shfiftyfive.swf',
     '/CONFIG.SYS': 'FILES=40\nBUFFERS=20\nDEVICE=HIMEM.SYS'
   };
   localStorage.setItem(SD_KEY, JSON.stringify(defaults));
@@ -760,7 +1713,7 @@ function saveAsNotepadFile() {
 function createDemoSDFile() {
   const files = getSDFiles();
   const name = `/LOG_${Math.floor(performance.now() / 1000)}.TXT`;
-  files[name] = `XP TELEMETRY LOG\nTIMESTAMP: ${new Date().toISOString()}`;
+  files[name] = `XP TELEMETRY LOG\nPINBALL HIGH SCORE: ${pinScore}`;
   selectedSDFile = name;
   saveSDFiles(files);
   playTone(1400, 60);
@@ -807,7 +1760,7 @@ function resetVirtualDisk() {
   playTone(1200, 90);
 }
 
-// ==================== MSN MESSENGER 6.2 (BROADCASTCHANNEL P2P) ====================
+// ==================== MSN MESSENGER 6.2 ====================
 const msnChannel = ('BroadcastChannel' in window) ? new BroadcastChannel('xp_wonderland_msn_4444') : null;
 
 function appendMSNLog(html, color = '#111') {
@@ -823,23 +1776,22 @@ function sendMSNMessage() {
   const inp = document.getElementById('msn-input');
   const msg = inp.value.trim();
   if (!msg) return;
-  const handle = (document.getElementById('msn-handle').value.trim() || 'ALICE_WEB').toUpperCase();
+  const handle = (document.getElementById('msn-handle').value.trim() || 'ALICE_XP').toUpperCase();
   appendMSNLog(`${handle}: ${msg}`, '#003399');
   if (msnChannel) msnChannel.postMessage({ type: 'chat', handle, msg });
   inp.value = '';
   playClick();
 
-  // Wonderland Bot auto-reply if chatting solo
   if (msg.toLowerCase().includes('hello') || msg.toLowerCase().includes('hi')) {
     setTimeout(() => {
-      appendMSNLog('CHESHIRE_BOT: We are all mad here! (Open a 2nd browser tab to chat live between tabs!)', '#006633');
+      appendMSNLog('CHESHIRE_BOT: Have you watched End of Ze World on IE6 yet?!', '#006633');
       playMSNAlert();
-    }, 650);
+    }, 600);
   }
 }
 
 function sendMSNNudge() {
-  const handle = (document.getElementById('msn-handle').value.trim() || 'ALICE_WEB').toUpperCase();
+  const handle = (document.getElementById('msn-handle').value.trim() || 'ALICE_XP').toUpperCase();
   appendMSNLog(`* ${handle} SENT A NUDGE! *`, '#cc0000');
   if (msnChannel) msnChannel.postMessage({ type: 'nudge', handle });
   shakeMSNWindow();
@@ -848,59 +1800,42 @@ function sendMSNNudge() {
 function shakeMSNWindow() {
   playMSNAlert();
   const win = document.getElementById('win-msn');
-  const origLeft = win.offsetLeft;
-  const origTop = win.offsetTop;
-  const offsets = [[-8, 5], [8, -5], [-6, -4], [6, 4], [0, 0]];
-  offsets.forEach(([dx, dy], i) => {
-    setTimeout(() => {
-      win.style.left = (origLeft + dx) + 'px';
-      win.style.top = (origTop + dy) + 'px';
-    }, i * 40);
+  const origLeft = win.offsetLeft, origTop = win.offsetTop;
+  [[-8, 5], [8, -5], [-6, -4], [6, 4], [0, 0]].forEach(([dx, dy], i) => {
+    setTimeout(() => { win.style.left = (origLeft + dx) + 'px'; win.style.top = (origTop + dy) + 'px'; }, i * 40);
   });
 }
-
 function clearMSNChat() { document.getElementById('msn-chat-log').innerHTML = ''; }
 
 if (msnChannel) {
   msnChannel.onmessage = (ev) => {
     const d = ev.data || {};
-    if (d.type === 'nudge') {
-      appendMSNLog(`* ${d.handle} SENT YOU A NUDGE! *`, '#cc0000');
-      shakeMSNWindow();
-    } else if (d.type === 'chat') {
-      appendMSNLog(`${d.handle}: ${d.msg}`, '#006633');
-      playMSNAlert();
-    }
+    if (d.type === 'nudge') { appendMSNLog(`* ${d.handle} SENT YOU A NUDGE! *`, '#cc0000'); shakeMSNWindow(); }
+    else if (d.type === 'chat') { appendMSNLog(`${d.handle}: ${d.msg}`, '#006633'); playMSNAlert(); }
   };
 }
 
-// ==================== TASK MANAGER PHOSPHOR GRAPH ====================
+// ==================== TASK MANAGER & DXDIAG 3D CUBE ====================
 const cpuHist = new Array(40).fill(14);
 const memHist = new Array(40).fill(32);
 const bootTime = Date.now();
 
 function sampleTelemetry() {
-  cpuHist.shift();
-  memHist.shift();
+  cpuHist.shift(); memHist.shift();
   const openCount = document.querySelectorAll('.xp-window[style*="flex"]').length;
-  cpuHist.push(Math.min(98, 8 + openCount * 11 + Math.floor(Math.random() * 14)));
-  memHist.push(Math.min(92, 24 + openCount * 6 + Math.floor(Math.random() * 5)));
+  cpuHist.push(Math.min(98, 8 + openCount * 9 + Math.floor(Math.random() * 14)));
+  memHist.push(Math.min(92, 24 + openCount * 5 + Math.floor(Math.random() * 5)));
 
   const canvas = document.getElementById('task-canvas');
   const ctx = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
-  ctx.fillStyle = '#000';
-  ctx.fillRect(0, 0, w, h);
-
-  ctx.strokeStyle = '#003b00';
-  ctx.lineWidth = 1;
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = '#003b00'; ctx.lineWidth = 1;
   for (let x = 0; x < w; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
   for (let y = 0; y < h; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
 
   const plotLine = (arr, color) => {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
+    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
     arr.forEach((v, i) => {
       const px = (i / (arr.length - 1)) * (w - 10) + 5;
       const py = h - 6 - (v / 100) * (h - 12);
@@ -917,90 +1852,60 @@ function sampleTelemetry() {
   const ss = String(upSec % 60).padStart(2, '0');
   document.getElementById('task-uptime').textContent = `UPTIME: ${hh}:${mm}:${ss}`;
   document.getElementById('task-stats').textContent =
-    `CPU LOAD: ${cpuHist[cpuHist.length - 1]}%   |   HEAP ALLOC: ${memHist[memHist.length - 1]}%   |   ACTIVE WINDOWS: ${openCount}`;
+    `CPU LOAD: ${cpuHist[cpuHist.length - 1]}%  |  HEAP: ${memHist[memHist.length - 1]}%  |  TASKS: ${openCount}`;
 }
 
-// ==================== DIRECTX 3D WIREFRAME CUBE ====================
-let angleX = 0, angleY = 0, angleZ = 0;
-let dxSpeed = 1;
+let angleX = 0, angleY = 0, angleZ = 0, dxSpeed = 1, dxColorIdx = 0;
 const dxColors = ['#00ff44', '#00ffff', '#ff44ff'];
-let dxColorIdx = 0;
-const cubeV = [
-  [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
-  [-1,-1, 1],[1,-1, 1],[1,1, 1],[-1,1, 1]
-];
-const cubeE = [
-  [0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]
-];
+const cubeV = [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+const cubeE = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
 
-function cycleDxSpeed() {
-  dxSpeed = (dxSpeed % 3) + 1;
-  document.getElementById('dx-speed-btn').textContent = `Speed: ${dxSpeed}x`;
-  playClick();
-}
-function cycleDxColor() {
-  dxColorIdx = (dxColorIdx + 1) % dxColors.length;
-  playClick();
-}
+function cycleDxSpeed() { dxSpeed = (dxSpeed % 3) + 1; document.getElementById('dx-speed-btn').textContent = `Speed: ${dxSpeed}x`; playClick(); }
+function cycleDxColor() { dxColorIdx = (dxColorIdx + 1) % dxColors.length; playClick(); }
 
-function renderDxCubeLoop() {
+function masterAnimationLoop() {
+  renderAlbinoFlashStage();
+  updateAndDrawPinball();
+
   const win = document.getElementById('win-dxdiag');
   if (win && win.style.display === 'flex') {
     const canvas = document.getElementById('dx-canvas');
     const ctx = canvas.getContext('2d');
     const w = canvas.width, h = canvas.height;
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, w, h);
-
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
     const step = 0.022 * dxSpeed;
     angleX += step; angleY += step * 1.3; angleZ += step * 0.7;
-    const sx = Math.sin(angleX), cx = Math.cos(angleX);
-    const sy = Math.sin(angleY), cy = Math.cos(angleY);
-    const sz = Math.sin(angleZ), cz = Math.cos(angleZ);
-
+    const sx = Math.sin(angleX), cx = Math.cos(angleX), sy = Math.sin(angleY), cy = Math.cos(angleY), sz = Math.sin(angleZ), cz = Math.cos(angleZ);
     const pts = cubeV.map(([x, y, z]) => {
       const y1 = y * cx - z * sx, z1 = y * sx + z * cx;
       const x2 = x * cy + z1 * sy, z2 = -x * sy + z1 * cy;
       const x3 = x2 * cz - y1 * sz, y3 = x2 * sz + y1 * cz;
       const dist = 3.2 + z2 * 0.45;
-      return [w / 2 + (x3 / dist) * 185, h / 2 + (y3 / dist) * 185];
+      return [w / 2 + (x3 / dist) * 175, h / 2 + (y3 / dist) * 175];
     });
-
     ctx.lineWidth = 2;
     cubeE.forEach(([a, b], idx) => {
       ctx.strokeStyle = idx < 4 ? dxColors[dxColorIdx] : (idx < 8 ? '#55aaff' : '#ffee33');
-      ctx.beginPath();
-      ctx.moveTo(pts[a][0], pts[a][1]);
-      ctx.lineTo(pts[b][0], pts[b][1]);
-      ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(pts[a][0], pts[a][1]); ctx.lineTo(pts[b][0], pts[b][1]); ctx.stroke();
     });
   }
-  requestAnimationFrame(renderDxCubeLoop);
+  requestAnimationFrame(masterAnimationLoop);
 }
 
 // ==================== COM / WEBSERIAL TERMINAL ====================
-let serialPort = null;
-
 function appendTerm(txt) {
   const log = document.getElementById('term-log');
   log.textContent += txt + '\n';
   log.scrollTop = log.scrollHeight;
 }
-
 async function connectWebSerial() {
-  if (!('serial' in navigator)) {
-    appendTerm('ERR: WebSerial API requires Chromium/Edge/Brave over HTTPS or localhost.');
-    return;
-  }
+  if (!('serial' in navigator)) { appendTerm('ERR: WebSerial requires Chromium/Brave.'); return; }
   try {
-    serialPort = await navigator.serial.requestPort();
-    await serialPort.open({ baudRate: 115200 });
-    appendTerm('COM1: Physical USB Serial Port Connected @ 115200 baud!');
-  } catch (e) {
-    appendTerm('COM1: Connection canceled or failed (' + e.message + ')');
-  }
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 115200 });
+    appendTerm('COM1: Physical USB Serial Connected @ 115200 baud!');
+  } catch (e) { appendTerm('COM1: ' + e.message); }
 }
-
 function runTerminalCmd() {
   const inp = document.getElementById('term-input');
   const raw = inp.value.trim();
@@ -1008,17 +1913,18 @@ function runTerminalCmd() {
   inp.value = '';
   appendTerm('COM1> ' + raw);
   const cmd = raw.toUpperCase();
-
-  if (cmd === 'HELP') appendTerm('Commands: HELP, DIR, SYS, MSN, DX, BSOD, REBOOT');
+  if (cmd === 'HELP') appendTerm('CMDs: HELP, DIR, PINBALL, MINES, PAINT, SOL, ABS, BSOD, REBOOT');
   else if (cmd === 'DIR') appendTerm('D:\\ Files: ' + Object.keys(getSDFiles()).join(', '));
-  else if (cmd === 'SYS') appendTerm('Processor: Pentium III-S WebCore | Virtual SD: Mounted');
-  else if (cmd === 'MSN') openApp('msn');
-  else if (cmd === 'DX') openApp('dxdiag');
+  else if (cmd === 'PINBALL') openApp('pinball');
+  else if (cmd === 'MINES') openApp('mines');
+  else if (cmd === 'PAINT') openApp('paint');
+  else if (cmd === 'SOL') openApp('solitaire');
+  else if (cmd === 'ABS') openApp('ie6');
   else if (cmd === 'REBOOT') location.reload();
   else if (cmd === 'BSOD') {
     document.body.innerHTML = `<div style="background:#0000aa;color:#fff;font-family:monospace;height:100vh;padding:40px;font-size:18px;">
       <p>A problem has been detected and Windows has been shut down to prevent damage to your Wonderland.</p>
-      <p>KERNEL_TEA_PARTY_EXCEPTION (0x000000ED)</p>
+      <p>ALBINO_BLACKSHEEP_OVERFLOW (0x00000055)</p>
       <p style="margin-top:30px;cursor:pointer;color:#ff0;" onclick="location.reload()">[Click anywhere to Warm Reboot]</p>
     </div>`;
   }
@@ -1040,10 +1946,14 @@ setInterval(() => {
   sampleTelemetry();
 }, 1000);
 
-appendMSNLog('SYSTEM: MSN Messenger 6.2 Ready. Type "hello" or open a 2nd browser tab!', '#555');
+appendMSNLog('SYSTEM: MSN 6.2 Ready! Open IE6 for Albino Blacksheep or launch 3D Pinball!', '#555');
 renderSDFileList();
+initMinesweeper();
+initMSPaint();
+initSolitaire();
+resetPinballGame();
 startBIOSPost();
-requestAnimationFrame(renderDxCubeLoop);
+requestAnimationFrame(masterAnimationLoop);
 </script>
 </body>
 </html>
